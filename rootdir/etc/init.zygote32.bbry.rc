@@ -1,0 +1,22 @@
+# start: BBSECURE_ZYMAN
+# refer to init.zygote32.rc for expected upstream setup, mirror appropriate service options below
+service zygote /system/bin/zygoteman --zygote_sys32 --system_server32 --zygote_per32 --zygote_ent32 --fork_limit_sys=12 --fork_limit_per=0 --fork_limit_ent=0
+    class main
+    priority -20
+    user root
+    group root readproc
+    socket zygote stream 660 root system
+    socket zygote_1 stream 660 root system
+    socket zygote_2 stream 660 root system
+    socket zygote_3 stream 660 root system
+    socket zygote_4 stream 660 root system
+    onrestart write /sys/android_power/request_state wake
+    onrestart write /sys/power/state on
+    onrestart restart audioserver
+    onrestart restart cameraserver
+    onrestart restart media
+    onrestart restart netd
+    onrestart restart wificond
+    writepid /dev/cpuset/foreground/tasks
+
+# end: BBSECURE_ZYMAN

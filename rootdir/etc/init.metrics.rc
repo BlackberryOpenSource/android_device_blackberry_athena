@@ -1,0 +1,26 @@
+on early-init
+setprop metrics.bootstage.early-init stopped
+
+on init
+setprop metrics.bootstage.init stopped
+
+on late-init
+setprop metrics.bootstage.late-init stopped
+
+on fs
+setprop metrics.bootstage.fs stopped
+
+on post-fs
+setprop metrics.bootstage.post-fs stopped
+
+on post-fs-data
+setprop metrics.bootstage.post-fs-data stopped
+
+on charger
+setprop metrics.bootstage.charger stopped
+
+on early-boot
+setprop metrics.bootstage.early-boot stopped
+
+on boot
+setprop metrics.bootstage.boot stopped
