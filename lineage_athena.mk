@@ -17,7 +17,8 @@ $(call inherit-product, device/blackberry/athena/device.mk)
 PRODUCT_DEVICE := athena
 PRODUCT_NAME := lineage_athena
 PRODUCT_BRAND := blackberry
-PRODUCT_MANUFACTURER := blackberry
+PRODUCT_MODEL := KEY2
+PRODUCT_MANUFACTURER := Blackberry
 
 PRODUCT_GMS_CLIENTID_BASE := android-blackberry
 
