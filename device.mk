@@ -7,6 +7,10 @@
 # API levels
 PRODUCT_SHIPPING_API_LEVEL := 27
 
+# Kernel
+PRODUCT_COPY_FILES += \
+    device/blackberry/athena/prebuilts/kernel:kernel
+
 # Health
 PRODUCT_PACKAGES += \
     android.hardware.health@2.1-impl \
@@ -49,17 +53,8 @@ PRODUCT_PACKAGES += \
     init.qcom.rc \
     init.qcom.usb.rc \
     init.target.rc \
-    init.environ.rc \
     init.metrics.rc \
-    init.rc \
-    init.recovery.qcom.rc \
-    init.usb.configfs.rc \
-    init.usb.rc \
-    init.zygote32.1.rc \
-    init.zygote32.bbry.rc \
-    init.zygote64_32.1.rc \
-    init.zygote64_32.bbry.rc \
-    ueventd.rc \
+    init.recovery.qcom.rc
 
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \

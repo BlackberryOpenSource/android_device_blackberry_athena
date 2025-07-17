@@ -5,9 +5,9 @@
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/lineage_athena.mk
+    $(LOCAL_DIR)/athena.mk
 
 COMMON_LUNCH_CHOICES := \
-    lineage_athena-user \
-    lineage_athena-userdebug \
-    lineage_athena-eng
+    athena-user \
+    athena-userdebug \
+    athena-eng
