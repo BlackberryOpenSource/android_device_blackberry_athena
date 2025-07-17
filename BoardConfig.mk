@@ -35,8 +35,8 @@ TARGET_SCREEN_DENSITY := 420
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_CMDLINE := earlycon=msm_serial_dm,0xc170000 androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 sched_enable_hmp=1 sched_enable_power_aware=1 service_locator.enable=1 swiotlb=1 androidboot.configfs=true androidboot.usbcontroller=a800000.dwc3 androidboot.imagetype=sfi build_number=ACW142 androidboot.build_number=ACW142 coherent_pool=1280K buildvariant=user
 BOARD_KERNEL_PAGESIZE := 4096
-BOARD_KERNEL_IMAGE_NAME := Image
-TARGET_KERNEL_CONFIG := athena_defconfig
+BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
+TARGET_KERNEL_CONFIG := athena-perf_defconfig
 TARGET_KERNEL_SOURCE := kernel/blackberry/athena
 
 # Kernel - prebuilt
