@@ -73,5 +73,8 @@ VENDOR_SECURITY_PATCH := 2021-08-05
 # VINTF
 DEVICE_MANIFEST_FILE += $(DEVICE_PATH)/manifest.xml
 
+# Audio
+USE_XML_AUDIO_POLICY_CONF := 1
+
 # Inherit the proprietary files
 include vendor/blackberry/athena/BoardConfigVendor.mk
