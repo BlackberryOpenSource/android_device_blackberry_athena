@@ -24,6 +24,10 @@ TARGET_2ND_CPU_VARIANT_RUNTIME := generic
 # APEX
 OVERRIDE_TARGET_FLATTEN_APEX := true
 
+# Platform
+BOARD_USES_QCOM_HARDWARE := true
+PRODUCT_VENDOR_MOVE_ENABLED := true
+
 # Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := sdm660
 TARGET_NO_BOOTLOADER := true
@@ -32,12 +36,17 @@ TARGET_NO_BOOTLOADER := true
 TARGET_SCREEN_DENSITY := 420
 
 # Kernel
-BOARD_KERNEL_BASE := 0x00000000
-BOARD_KERNEL_CMDLINE := earlycon=msm_serial_dm,0xc170000 androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 sched_enable_hmp=1 sched_enable_power_aware=1 service_locator.enable=1 swiotlb=1 androidboot.configfs=true androidboot.usbcontroller=a800000.dwc3 androidboot.imagetype=sfi build_number=ACW142 androidboot.build_number=ACW142 coherent_pool=1280K buildvariant=user
+BOARD_KERNEL_CMDLINE := androidboot.selinux=permissive earlycon=msm_serial_dm,0xc170000 androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 sched_enable_hmp=1 sched_enable_power_aware=1 pathtrust=0 service_locator.enable=1 swiotlb=1 androidboot.configfs=true androidboot.usbcontroller=a800000.dwc3 build_number=ACQ160 androidboot.build_number=ACQ160 coherent_pool=1280K console=ttyMSM0
+BOARD_KERNEL_BASE := 0x0
 BOARD_KERNEL_PAGESIZE := 4096
-BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
+BOARD_KERNEL_TAGS_OFFSET := 0x00000100
+BOARD_RAMDISK_OFFSET     := 0x01000000
+BOARD_KERNEL_IMAGE_NAME := Image
+TARGET_KERNEL_SOURCE := kernel/blackberry/sdm660
 TARGET_KERNEL_CONFIG := athena-perf_defconfig
-TARGET_KERNEL_SOURCE := kernel/blackberry/athena
+TARGET_KERNEL_VERSION := 4.4
+TARGET_KERNEL_CLANG_COMPILE := true
+TARGET_KERNEL_CLANG_VERSION := r353983c
 
 # Kernel - prebuilt
 TARGET_FORCE_PREBUILT_KERNEL := true
@@ -49,17 +58,18 @@ endif
 BOARD_FLASH_BLOCK_SIZE := 262144 # (BOARD_KERNEL_PAGESIZE * 64)
 BOARD_BOOTIMAGE_PARTITION_SIZE := 22421504
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 22421504
+BOARD_BUILD_SYSTEM_ROOT_IMAGE := false 
 BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE := ext4
-BOARD_SYSTEMIMAGE_JOURNAL_SIZE := 64
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 3875536896
 TARGET_COPY_OUT_SYSTEM := system
 BOARD_USES_VENDORIMAGE := true
 BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
-BOARD_VENDORIMAGE_JOURNAL_SIZE := 16
 BOARD_VENDORIMAGE_PARTITION_SIZE := 838860800
 TARGET_COPY_OUT_VENDOR := vendor
 BOARD_USES_OEMIMAGE := true
 BOARD_OEMIMAGE_FILE_SYSTEM_TYPE := ext4
+TARGET_USERIMAGES_USE_EXT4 := true
+TARGET_USERIMAGES_USE_F2FS := true
 
 # Platform
 TARGET_BOARD_PLATFORM := sdm660
@@ -68,25 +78,108 @@ TARGET_BOARD_PLATFORM := sdm660
 TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
 TARGET_VENDOR_PROP += $(DEVICE_PATH)/vendor.prop
 
-# Recovery
-TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/etc/fstab.qcom
-TARGET_USERIMAGES_USE_EXT4 := true
-TARGET_USERIMAGES_USE_F2FS := true
-
 # Security patch level
-VENDOR_SECURITY_PATCH := 2021-08-05
+VENDOR_SECURITY_PATCH := 2020-05-01
 
-# VINTF
-DEVICE_MANIFEST_FILE += $(DEVICE_PATH)/manifest.xml
+# VNDK
+BOARD_VNDK_VERSION := current
+
+# Build System
+BUILD_BROKEN_DUP_RULES := true
+
+# ANT+
+BOARD_ANT_WIRELESS_DEVICE := "qualcomm-hidl"
+
+# APEX
+DEXPREOPT_GENERATE_APEX_IMAGE := true
 
 # Audio
-USE_XML_AUDIO_POLICY_CONF := 1
+AUDIO_FEATURE_ENABLED_EXTENDED_COMPRESS_FORMAT := true
+BOARD_SUPPORTS_SOUND_TRIGGER := true
+BOARD_USES_ALSA_AUDIO := true
+USE_XML_AUDIO_POLICY_CONF := true
+USE_CUSTOM_AUDIO_POLICY := false
+
+# Bluetooth
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(DEVICE_PATH)/bluetooth
+BOARD_HAVE_BLUETOOTH := true
+BOARD_HAVE_BLUETOOTH_QCOM := true
+
+# Camera
+USE_CAMERA_STUB := true
+TARGET_USES_QTI_CAMERA_DEVICE := true
+
+# Charger
+BOARD_CHARGER_ENABLE_SUSPEND := true
+
+# DRM
+TARGET_ENABLE_MEDIADRM_64 := true
+
+# Filesystem
+TARGET_FS_CONFIG_GEN := $(DEVICE_PATH)/config.fs
+
+# FM
+BOARD_HAVE_QCOM_FM := true
+BOARD_HAS_QCA_FM_SOC := "cherokee"
+
+# Graphics
+MAX_EGL_CACHE_KEY_SIZE := 12*1024
+MAX_EGL_CACHE_SIZE := 2048*1024
+OVERRIDE_RS_DRIVER := libRSDriver_adreno.so
+TARGET_USES_GRALLOC1 := true
+TARGET_USES_HWC2 := true
+TARGET_USES_ION := true
+NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
+
+# HIDL
+DEVICE_MANIFEST_FILE := $(DEVICE_PATH)/manifest.xml
+DEVICE_MATRIX_FILE := $(DEVICE_PATH)/compatibility_matrix.xml
+
+# Power
+TARGET_USES_INTERACTION_BOOST := true
+
+# Recovery
+TARGET_RECOVERY_DEVICE_DIRS += $(DEVICE_PATH)
+TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/etc/fstab.qcom
+TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888
+TARGET_RECOVERY_UI_BLANK_UNBLANK_ON_INIT := true
+
+# RIL
+ENABLE_VENDOR_RIL_SERVICE := true
+TARGET_USES_OLD_MNC_FORMAT := true
+
+# Root Directories
+BOARD_ROOT_EXTRA_SYMLINKS := \
+    /mnt/vendor/persist:/persist \
+    /vendor/bt_firmware:/bt_firmware \
+    /vendor/dsp:/dsp \
+    /vendor/firmware_mnt:/firmware
+
+# Telephony
+TARGET_PROVIDES_QTI_TELEPHONY_JAR := true
+
+# Timeservice
+BOARD_USES_QC_TIME_SERVICES := true
 
 # SEPolicy
 BOARD_SEPOLICY_VERS := 27.0
-ifneq ($(TARGET_BUILD_VARIANT),user)
-SELINUX_IGNORE_NEVERALLOWS := true
-endif
+include $(DEVICE_PATH)/sepolicy/sepolicy.mk
 
-# Inherit the proprietary files
+BOARD_PLAT_PRIVATE_SEPOLICY_DIR += $(DEVICE_PATH)/sepolicy/private
+BOARD_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/vendor
+
+# Wifi
+BOARD_HAS_QCOM_WLAN := true
+BOARD_WLAN_DEVICE := qcwcn
+BOARD_WPA_SUPPLICANT_DRIVER := NL80211
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
+BOARD_HOSTAPD_DRIVER := NL80211
+BOARD_HOSTAPD_PRIVATE_LIB := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
+WIFI_DRIVER_FW_PATH_AP  := "ap"
+WIFI_DRIVER_FW_PATH_P2P := "p2p"
+WIFI_DRIVER_FW_PATH_STA := "sta"
+WIFI_HIDL_FEATURE_DUAL_INTERFACE := true
+WPA_SUPPLICANT_VERSION := VER_0_8_X
+
+# Include vendor-specific configurations
 include vendor/blackberry/athena/BoardConfigVendor.mk
