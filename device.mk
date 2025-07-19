@@ -56,6 +56,9 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     fs_config_files
 
+# Android EGL implementation
+PRODUCT_PACKAGES += libGLES_android
+
 # ANT+
 PRODUCT_PACKAGES += \
     AntHalService \
@@ -68,6 +71,8 @@ PRODUCT_PACKAGES += \
     android.hardware.audio@2.0-service \
     android.hardware.audio.effect@2.0-impl \
     android.hardware.audio.effect@2.0-service \
+    android.hardware.soundtrigger@2.0-impl \
+    android.hardware.soundtrigger@2.0-service \
     android.hardware.soundtrigger@2.2-impl \
     android.hardware.soundtrigger@2.2-service \
     sound_trigger.primary.sdm660 \
@@ -77,11 +82,13 @@ PRODUCT_PACKAGES += \
     audio.r_submix.default \
     audio.usb.default \
     libaacwrapper \
+    libalsautils \
     libaudio-resampler \
     libqcompostprocbundle \
     libqcomvisualizer \
     libqcomvoiceprocessing \
     libvolumelistener \
+    libtinyxml \
     tinymix
 
 PRODUCT_COPY_FILES += \
@@ -108,15 +115,22 @@ PRODUCT_PACKAGES += \
 
 # Camera
 PRODUCT_PACKAGES += \
+    android.hardware.camera.device@3.2-impl \
+    android.hardware.camera.device@3.2 \
+    android.hardware.camera.device@3.3-impl \
     android.hardware.camera.device@3.3 \
     android.hardware.camera.provider@2.4-impl \
     android.hardware.camera.provider@2.4-service \
     android.hardware.camera.provider@2.4 \
+    camera.sdm660 \
     libstdc++.vendor \
     Snap \
     vendor.qti.hardware.camera.device@1.0 \
-    vendor.qti.hardware.camera.device@1.0_vendor \
-    camera.sdm660
+    vendor.qti.hardware.camera.device@1.0_vendor
+
+# CAS
+PRODUCT_PACKAGES += \
+    android.hardware.cas@1.0-service
 
 # Security
 PRODUCT_PACKAGES += \
@@ -126,6 +140,7 @@ PRODUCT_PACKAGES += \
 
 # Display
 PRODUCT_PACKAGES += \
+    android.hardware.configstore@1.0-service \
     android.hardware.graphics.allocator@2.0-impl:64 \
     android.hardware.graphics.allocator@2.0-service \
     android.hardware.graphics.composer@2.1-impl:64 \
@@ -190,7 +205,8 @@ PRODUCT_PACKAGES += \
     android.hidl.base@1.0 \
     android.hidl.base@1.0_system \
     android.hidl.manager@1.0 \
-    android.hidl.manager@1.0_system
+    android.hidl.manager@1.0_system \
+    libkeystore-wifi-hidl
 
 # ICU
 PRODUCT_PACKAGES += \
@@ -249,16 +265,29 @@ PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_video_le.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_video_le.xml
 
 PRODUCT_PACKAGES += \
-    libmedia.vendor
+    libmedia.vendor \
+    libclearkeycasplugin \
+    libdrmclearkeyplugin
 
 # Net
 PRODUCT_PACKAGES += \
     android.system.net.netd@1.0 \
     libandroid_net \
+    libnetfilter_conntrack \
+    libnfnetlink \
     netutils-wrapper-1.0
+
+# NFS
+PRODUCT_PACKAGES += \
+    NfcNci \
+    Tag \
+    com.android.nfc_extras \
+    android.hardware.nfc@1.0-impl \
+    android.hardware.nfc@1.0-service \
 
 # OMX
 PRODUCT_PACKAGES += \
+    android.hardware.media.omx@1.0-service \
     libc2dcolorconvert \
     libextmedia_jni \
     libOmxAacEnc \
@@ -272,6 +301,7 @@ PRODUCT_PACKAGES += \
 
 # Power
 PRODUCT_PACKAGES += \
+    android.hardware.power@1.0-impl \
     android.hardware.power@1.0-service-qti
 
 # QMI
@@ -289,7 +319,6 @@ PRODUCT_PACKAGES += \
     com.android.ims.rcsmanager \
     PresencePolling \
     RcsService
-
 
 # Radio
 PRODUCT_PACKAGES += \
@@ -398,6 +427,106 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     vndk_package \
     vndk-sp
+
+# Wallpapers
+PRODUCT_COPY_FILES += \
+    $(DEVICE_PATH)/media/bbpic/Animal/aaron-barnaby-454278-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/aaron-barnaby-454278-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Animal/alan-emery-121147-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/alan-emery-121147-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Animal/alecu-gabriel-331261-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/alecu-gabriel-331261-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Animal/baptist-standaert-346832-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/baptist-standaert-346832-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Animal/christine-donaldson-309031-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/christine-donaldson-309031-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Animal/freddie-marriage-156915-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/freddie-marriage-156915-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Animal/freestocks-org-119823-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/freestocks-org-119823-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Animal/guillermo-sanchez-547092-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/guillermo-sanchez-547092-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Animal/hollie-harmsworth-373134-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/hollie-harmsworth-373134-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Animal/james-hammond-347179-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/james-hammond-347179-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Animal/jesse-callahan-411729-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/jesse-callahan-411729-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Animal/kaiwen-sun-352786-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/kaiwen-sun-352786-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Animal/ken-wu-156530-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/ken-wu-156530-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Architecture/andre-benz-475077-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/andre-benz-475077-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Architecture/andre-benz-501827-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/andre-benz-501827-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Architecture/annie-spratt-434973-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/annie-spratt-434973-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Architecture/annie-spratt-542975-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/annie-spratt-542975-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Architecture/benjamin-dickerhof-499931-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/benjamin-dickerhof-499931-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Architecture/daniel-burka-104041-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/daniel-burka-104041-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Architecture/dawson-lovell-498973-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/dawson-lovell-498973-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Architecture/derek-liang-308130-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/derek-liang-308130-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Architecture/derek-liang-503982-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/derek-liang-503982-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Architecture/eddie-garcia-503671-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/eddie-garcia-503671-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Architecture/john-towner-133303-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/john-towner-133303-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Architecture/karsten-wurth-inf1783-169610-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/karsten-wurth-inf1783-169610-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Architecture/mwangi-gatheca-548638-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/mwangi-gatheca-548638-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Architecture/nicholas-loo-372788-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/nicholas-loo-372788-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Architecture/osman-rana-193635-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/osman-rana-193635-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Architecture/redd-angelo-236775-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/redd-angelo-236775-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Architecture/roman-kraft-51047-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/roman-kraft-51047-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Architecture/roya-ann-miller-463707-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/roya-ann-miller-463707-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/blackandwhite/david-marcu-751-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/david-marcu-751-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/blackandwhite/erico-marcelino-235177-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/erico-marcelino-235177-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/blackandwhite/hoach-le-dinh-96823-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/hoach-le-dinh-96823-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/blackandwhite/isabella-juskova-470923-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/isabella-juskova-470923-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/blackandwhite/ornella-binni-102187-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/ornella-binni-102187-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/blackandwhite/tj-holowaychuk-295674-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/tj-holowaychuk-295674-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/foodanddrink/brenda-godinez-227281-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/brenda-godinez-227281-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/foodanddrink/brooke-lark-158019-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/brooke-lark-158019-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/foodanddrink/brooke-lark-194252-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/brooke-lark-194252-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/foodanddrink/brooke-lark-200708-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/brooke-lark-200708-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/foodanddrink/jennifer-pallian-146562-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/jennifer-pallian-146562-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/foodanddrink/jennifer-pallian-200439-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/jennifer-pallian-200439-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/foodanddrink/jessica-castro-350570-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/jessica-castro-350570-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/foodanddrink/joseph-gonzalez-192345-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/joseph-gonzalez-192345-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/foodanddrink/joseph-gonzalez-228027-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/joseph-gonzalez-228027-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/foodanddrink/whitney-wright-282068-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/whitney-wright-282068-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Landscape/adam-krowitz-386792-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/adam-krowitz-386792-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Landscape/alexander-andrews-394970-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/alexander-andrews-394970-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Landscape/ashim-d-silva-162286-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/ashim-d-silva-162286-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Landscape/chris-arock-420349-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/chris-arock-420349-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Landscape/grant-ritchie-338423-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/grant-ritchie-338423-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Landscape/ian-keefe-452136-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/ian-keefe-452136-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Landscape/jake-blucker-316192-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/jake-blucker-316192-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Landscape/jaromir-kavan-296728-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/jaromir-kavan-296728-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Landscape/jean-philippe-delberghe-461641-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/jean-philippe-delberghe-461641-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Landscape/katie-moum-394599-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/katie-moum-394599-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Landscape/marcus-wallis-473525-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/marcus-wallis-473525-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Landscape/mario-taferner-339576-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/mario-taferner-339576-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Landscape/matthew-larkin-398651-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/matthew-larkin-398651-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Landscape/milkovi-414159-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/milkovi-414159-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Landscape/mohammad-alizade-368770-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/mohammad-alizade-368770-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Landscape/nate-rayfield-336417-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/nate-rayfield-336417-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Landscape/rob-musson-458944-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/rob-musson-458944-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Landscape/robert-richarz-498684-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/robert-richarz-498684-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Landscape/sean-pierce-342043-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/sean-pierce-342043-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Landscape/sherman-yang-503440-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/sherman-yang-503440-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Landscape/shifaaz-shamoon-302646-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/shifaaz-shamoon-302646-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Landscape/stephen-leonardi-369720-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/stephen-leonardi-369720-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Minimalism/billy-lam-303-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/billy-lam-303-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Minimalism/fabian-moller-401628-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/fabian-moller-401628-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Minimalism/igor-son-320878-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/igor-son-320878-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Minimalism/pineapple-supply-co-262624-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/pineapple-supply-co-262624-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Minimalism/simone-hutsch-384766-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/simone-hutsch-384766-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Minimalism/simone-hutsch-384853-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/simone-hutsch-384853-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Minimalism/simone-hutsch-384859-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/simone-hutsch-384859-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Minimalism/simone-hutsch-478127-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/simone-hutsch-478127-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Minimalism/simone-hutsch-538312-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/simone-hutsch-538312-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Nature/aaron-burden-261110-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/aaron-burden-261110-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Nature/annie-spratt-199471-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/annie-spratt-199471-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Nature/dakota-corbin-207925-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/dakota-corbin-207925-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Nature/flo-dahm-463416-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/flo-dahm-463416-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Nature/paul-larkin-524582-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/paul-larkin-524582-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Nature/peng-chen-407915-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/peng-chen-407915-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Travel/annie-spratt-441579-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/annie-spratt-441579-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Travel/charlie-costello-301722-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/charlie-costello-301722-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Travel/clarisse-meyer-304307-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/clarisse-meyer-304307-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Travel/dorian-mongel-340528-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/dorian-mongel-340528-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Travel/henri-picot-542943-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/henri-picot-542943-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Travel/ian-keefe-218453-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/ian-keefe-218453-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Travel/ian-parker-546257-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/ian-parker-546257-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Travel/igor-ovsyannykov-219668-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/igor-ovsyannykov-219668-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Travel/jaime-arrieta-237601-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/jaime-arrieta-237601-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Travel/james-connolly-391460-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/james-connolly-391460-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Travel/linh-nguyen-145766-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/linh-nguyen-145766-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Travel/luca-bravo-453157-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/luca-bravo-453157-unsplash.jpg \
+    $(DEVICE_PATH)/media/bbpic/Travel/samuel-zeller-171871-unsplash.jpg:$(TARGET_COPY_OUT_SYSTEM)/etc/wallpaper/samuel-zeller-171871-unsplash.jpg
 
 # Weaver
 PRODUCT_PACKAGES += \
