@@ -218,8 +218,6 @@ PRODUCT_PACKAGES += \
     android.hardware.light@2.0-service \
     lights.sdm660
 
-# TODO - LiveDisplay
-
 # Overlays
 PRODUCT_ENFORCE_RRO_TARGETS := *
 
@@ -372,10 +370,6 @@ PRODUCT_PACKAGES += \
     android.hardware.thermal@1.0-impl \
     android.hardware.thermal@1.0-service \
     thermal.sdm660
-
-# Trust
-PRODUCT_PACKAGES += \
-    vendor.lineage.trust@1.0-service
 
 # Update engine
 PRODUCT_PACKAGES += \

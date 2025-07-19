@@ -12,17 +12,7 @@ endif
 BOARD_PLAT_PRIVATE_SEPOLICY_DIR += \
     $(DEVICE_PATH)/sepolicy/qcom/private
 
-ifeq ($(TARGET_USES_PREBUILT_VENDOR_SEPOLICY), true)
-BOARD_PLAT_PRIVATE_SEPOLICY_DIR += \
-    $(DEVICE_PATH)/sepolicy/qcom/dynamic \
-    $(DEVICE_PATH)/sepolicy/qcom/system
-else
+ifeq ($(TARGET_USES_PREBUILT_VENDOR_SEPOLICY), false)
 BOARD_SEPOLICY_DIRS += \
-    $(DEVICE_PATH)/sepolicy/qcom/dynamic \
     $(DEVICE_PATH)/sepolicy/qcom/vendor
-endif
-
-ifneq ($(filter msm8226 msm8610 msm8974 msm8909 msm8916 msm8952 msm8992 msm8994,$(TARGET_BOARD_PLATFORM)),)
-BOARD_SEPOLICY_DIRS += \
-    $(DEVICE_PATH)/sepolicy/qcom/legacy-vendor
 endif
