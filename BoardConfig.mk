@@ -157,10 +157,8 @@ BOARD_USES_QC_TIME_SERVICES := true
 
 # SEPolicy
 BOARD_SEPOLICY_VERS := 27.0
+SELINUX_IGNORE_NEVERALLOWS := true
 include $(DEVICE_PATH)/sepolicy/sepolicy.mk
-
-BOARD_PLAT_PRIVATE_SEPOLICY_DIR += $(DEVICE_PATH)/sepolicy/private
-BOARD_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/vendor
 
 # Wifi
 BOARD_HAS_QCOM_WLAN := true
