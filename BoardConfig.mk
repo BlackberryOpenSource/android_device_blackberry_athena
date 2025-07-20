@@ -30,12 +30,12 @@ TARGET_NO_BOOTLOADER := true
 TARGET_SCREEN_DENSITY := 420
 
 # Kernel
-BOARD_KERNEL_CMDLINE := androidboot.selinux=permissive earlycon=msm_serial_dm,0xc170000 androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 sched_enable_hmp=1 sched_enable_power_aware=1 pathtrust=0 service_locator.enable=1 swiotlb=1 androidboot.configfs=true androidboot.usbcontroller=a800000.dwc3 build_number=ACQ160 androidboot.build_number=ACQ160 coherent_pool=1280K console=ttyMSM0
 BOARD_KERNEL_BASE := 0x0
+BOARD_KERNEL_CMDLINE := androidboot.selinux=permissive earlycon=msm_serial_dm,0xc170000 androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 sched_enable_hmp=1 sched_enable_power_aware=1 pathtrust=0 service_locator.enable=1 swiotlb=1 androidboot.configfs=true androidboot.usbcontroller=a800000.dwc3 build_number=ACQ160 androidboot.build_number=ACQ160 coherent_pool=1280K console=ttyMSM0
+BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_TAGS_OFFSET := 0x00000100
 BOARD_RAMDISK_OFFSET     := 0x01000000
-BOARD_KERNEL_IMAGE_NAME := Image
 TARGET_KERNEL_SOURCE := kernel/blackberry/sdm660
 TARGET_KERNEL_CONFIG := athena-perf_defconfig
 TARGET_KERNEL_VERSION := 4.4
@@ -49,21 +49,19 @@ TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilts/kernel
 endif
 
 # Partitions
+BOARD_BOOTIMAGE_PARTITION_SIZE := 0x04000000
+BOARD_BUILD_SYSTEM_ROOT_IMAGE := false
 BOARD_FLASH_BLOCK_SIZE := 262144 # (BOARD_KERNEL_PAGESIZE * 64)
-BOARD_BOOTIMAGE_PARTITION_SIZE := 22421504
-BOARD_RECOVERYIMAGE_PARTITION_SIZE := 22421504
-BOARD_BUILD_SYSTEM_ROOT_IMAGE := false 
+BOARD_RECOVERYIMAGE_PARTITION_SIZE := 0x04000000
 BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE := ext4
-BOARD_SYSTEMIMAGE_PARTITION_SIZE := 3875536896
-TARGET_COPY_OUT_SYSTEM := system
+BOARD_SYSTEMIMAGE_PARTITION_SIZE := 4294967296
 BOARD_USES_VENDORIMAGE := true
 BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_VENDORIMAGE_PARTITION_SIZE := 838860800
+TARGET_COPY_OUT_PRODUCT := system/product
+TARGET_COPY_OUT_SYSTEM := system
 TARGET_COPY_OUT_VENDOR := vendor
-BOARD_USES_OEMIMAGE := true
-BOARD_OEMIMAGE_FILE_SYSTEM_TYPE := ext4
 TARGET_USERIMAGES_USE_EXT4 := true
-TARGET_USERIMAGES_USE_F2FS := true
 
 # Platform
 TARGET_BOARD_PLATFORM := sdm660
@@ -156,7 +154,6 @@ TARGET_PROVIDES_QTI_TELEPHONY_JAR := true
 BOARD_USES_QC_TIME_SERVICES := true
 
 # SEPolicy
-BOARD_SEPOLICY_VERS := 27.0
 SELINUX_IGNORE_NEVERALLOWS := true
 include $(DEVICE_PATH)/sepolicy/sepolicy.mk
 

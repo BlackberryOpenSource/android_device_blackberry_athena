@@ -130,7 +130,7 @@ PRODUCT_PACKAGES += \
 
 # CAS
 PRODUCT_PACKAGES += \
-    android.hardware.cas@1.0-service
+    android.hardware.cas@1.1-service
 
 # Security
 PRODUCT_PACKAGES += \
