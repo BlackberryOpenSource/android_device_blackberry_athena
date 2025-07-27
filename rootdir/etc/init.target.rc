@@ -70,7 +70,6 @@ on fs
     wait /dev/block/bootdevice/by-name/oempersist
     mount ext4 /dev/block/bootdevice/by-name/oempersist /oempersist nosuid nodev noatime barrier=1
     restorecon_recursive /oempersist
-    chown system oempersist /oempersist
     chmod 0771 /oempersist
 #ADD-end by TCTNB.lijiang
 
@@ -92,23 +91,6 @@ on fs
 
     wait /dev/block/bootdevice/by-name/oem
     mount ext4 /dev/block/bootdevice/by-name/oem /oem ro nosuid nodev barrier=1
-#ADD-begin by TCTNB.linjian.xiang, 2017/11/02, task-5491329,for carrier data
-    mkdir /oempersist/carrier
-    chown carrier system /oempersist/carrier
-    chmod 0751 /oempersist/carrier
-    mkdir /carrier/persist
-    chown carrier system /carrier/persist
-    mkdir /carrier/persist/applist
-    chown carrier system /carrier/persist/applist
-    chmod 0751 /carrier/persist/applist
-    mkdir /carrier/persist/omadm
-    chown carrier system /carrier/persist/omadm
-    chmod 0771 /carrier/persist/omadm
-
-    mkdir /carrier/persist/amazon
-    chown carrier system /carrier/persist/amazon
-    chmod 0777 /carrier/persist/amazon
-#ADD-end by TCTNB.linjian.xiang
 
 on post-fs
     start qseecomd
@@ -129,7 +111,7 @@ on post-fs-data
     mkdir /data/misc/tloc 0700 system drmrpc
     mkdir /data/jrdlog 0700 system system
     mkdir /data/jrdrecord 0700 system system
-    mkdir /data/jrdrecord_ddt 0770 system ddt
+    mkdir /data/jrdrecord_ddt 0770 system system
     chmod 0664 /bbpersist/phone/calltimesaver
     #[FEATURE]-Add-BEGIN by TCTNB.(fan.wang), 11/20/2017, Task-5626779, Porting from Task-3333049
     #read/write calltimesaver even if factory reset
@@ -505,7 +487,6 @@ on property:init.svc.zygote=restarting
     stop ppd
 
 on charger
-    load_system_props
     start qcom-post-boot
     start hvdcp_opti
     setprop sys.usb.configfs 1
@@ -568,7 +549,7 @@ on property:ro.ecid=544
     setprop ro.build.model BBF100-3
     setprop ro.build.manufacturer Blackberry
 
-# Task: 6180287, Disable download mode on MP branch
+# Task: 6554259, Enable device reboot when crash to avoid Full DUMP (Disable download mode for MP SW)
 #TASK 3562920 TCTNB huaidi.feng added for Crash DUMP Flag Management
 #on property:persist.sys.dload.enable=*
 #    write /sys/module/msm_poweroff/parameters/download_mode ${persist.sys.dload.enable}
